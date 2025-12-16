@@ -29,6 +29,11 @@
                     <a href="${pageContext.request.contextPath}/item/publish">
                         <i class="fas fa-plus-circle"></i> 发布物品
                     </a>
+                    <c:if test="${sessionScope.currentUser.role == 'admin'}">
+                        <a href="${pageContext.request.contextPath}/category/list">
+                            <i class="fas fa-tags"></i> 分类管理
+                        </a>
+                    </c:if>
                     <a href="${pageContext.request.contextPath}/auth/logout">
                         <i class="fas fa-sign-out-alt"></i> 退出
                     </a>

@@ -26,6 +26,11 @@
             <a href="${pageContext.request.contextPath}/item/publish">
                 <i class="fas fa-plus-circle"></i> 发布物品
             </a>
+            <c:if test="${sessionScope.currentUser.role == 'admin'}">
+                <a href="${pageContext.request.contextPath}/category/list">
+                    <i class="fas fa-tags"></i> 分类管理
+                </a>
+            </c:if>
             <div class="user-info">
                 <i class="fas fa-user"></i>
                 <span><c:out value="${sessionScope.currentUser.username}"/></span>
@@ -127,6 +132,20 @@
                                     </h3>
                                     <span class="item-status ${item.status == 'available' ? 'status-available' : 'status-sold'}">
                                             ${item.status == 'available' ? '可交易' : '已售出'}
+                                    </span>
+                                </div>
+
+                                <div class="item-meta">
+                                    <span style="color: #666;">
+                                        <i class="fas fa-tag"></i>
+                                        <c:choose>
+                                            <c:when test="${not empty item.categoryName}">
+                                                ${item.categoryName}
+                                            </c:when>
+                                            <c:otherwise>
+                                                未分类
+                                            </c:otherwise>
+                                        </c:choose>
                                     </span>
                                 </div>
 

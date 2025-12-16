@@ -12,4 +12,5 @@ public class User {
     private String username;
     private String passwordHash;
     private String salt;
+    private String role;  // 新增：用户角色字段
 }

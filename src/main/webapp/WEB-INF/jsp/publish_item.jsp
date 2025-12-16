@@ -69,6 +69,11 @@
             <a href="${pageContext.request.contextPath}/item/profile">
                 <i class="fas fa-box"></i> 我的物品
             </a>
+            <c:if test="${sessionScope.currentUser.role == 'admin'}">
+                <a href="${pageContext.request.contextPath}/category/list">
+                    <i class="fas fa-tags"></i> 分类管理
+                </a>
+            </c:if>
             <div class="user-info">
                 <i class="fas fa-user"></i>
                 <span><c:out value="${sessionScope.currentUser.username}"/></span>
@@ -130,6 +135,25 @@
                                    required>
                             <div style="color: #888; font-size: 14px; margin-top: 5px;">
                                 建议包含品牌、型号、规格等信息
+                            </div>
+                        </div>
+
+                        <!-- 分类选择 -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tags"></i> 物品分类 *
+                            </label>
+                            <select name="categoryId" class="form-control" required>
+                                <option value="">请选择分类</option>
+                                <c:forEach var="category" items="${categories}">
+                                    <option value="${category.id}" ${param.categoryId == category.id ? 'selected' : ''}>
+                                            ${category.name}
+                                        <c:if test="${not empty category.description}"> - ${category.description}</c:if>
+                                    </option>
+                                </c:forEach>
+                            </select>
+                            <div style="color: #888; font-size: 14px; margin-top: 5px;">
+                                选择合适的分类有助于买家快速找到您的物品
                             </div>
                         </div>
 

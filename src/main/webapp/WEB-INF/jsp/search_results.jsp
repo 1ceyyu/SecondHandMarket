@@ -24,6 +24,11 @@
                 <a href="${pageContext.request.contextPath}/item/profile">
                     <i class="fas fa-box"></i> 我的物品
                 </a>
+                <c:if test="${sessionScope.currentUser.role == 'admin'}">
+                    <a href="${pageContext.request.contextPath}/category/list">
+                        <i class="fas fa-tags"></i> 分类管理
+                    </a>
+                </c:if>
                 <div class="user-info">
                     <i class="fas fa-user"></i>
                     <span><c:out value="${sessionScope.currentUser.username}"/></span>
@@ -55,7 +60,42 @@
                 </button>
             </form>
         </div>
+        <!-- 在搜索框后添加分类筛选 -->
+        <div class="category-filter" style="margin: 15px 0;">
+            <span style="color: #666; margin-right: 10px;">筛选分类:</span>
+            <a href="${pageContext.request.contextPath}/item/search?keyword=${keyword}"
+               class="filter-tag ${empty param.categoryId ? 'active' : ''}">
+                全部
+            </a>
+            <c:forEach var="category" items="${categories}">
+                <a href="${pageContext.request.contextPath}/item/search?keyword=${keyword}&categoryId=${category.id}"
+                   class="filter-tag ${param.categoryId == category.id ? 'active' : ''}">
+                        ${category.name}
+                </a>
+            </c:forEach>
+        </div>
 
+        <style>
+            .filter-tag {
+                display: inline-block;
+                padding: 4px 12px;
+                margin: 0 5px 5px 0;
+                background: #f1f3f5;
+                color: #495057;
+                border-radius: 20px;
+                text-decoration: none;
+                font-size: 13px;
+                transition: all 0.3s;
+            }
+            .filter-tag:hover {
+                background: #e9ecef;
+                text-decoration: none;
+            }
+            .filter-tag.active {
+                background: #4a6bff;
+                color: white;
+            }
+        </style>
         <!-- 搜索统计 -->
         <div class="search-stats">
             <c:choose>
